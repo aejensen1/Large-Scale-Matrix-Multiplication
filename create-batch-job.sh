@@ -9,9 +9,9 @@ validate_number() {
 }
 
 # Parse command-line arguments
-# Check if the number of arguments is equal to 7, otherwise print usage instruction
-if [ "$#" -ne 7 ]; then
-    echo "Usage: $0 <file_type> <array_size> <num_threads> <job_name> <num_nodes> <ntasks-per-node> <cores-per-task>"
+# Check if the number of arguments is equal to 6, otherwise print usage instruction
+if [ "$#" -ne 6 ]; then
+    echo "Usage: $0 <file_type> <array_size> <num_threads> <job_name> <num_nodes> <ntasks-per-node>"
     echo "Available file types: cNoThread, cPThread, cOpenMP, pythonNoThreads, pythonWithThreads"
     echo "Max number of threads: 256 (128 cores * 2 threads per core)"
     exit 1
@@ -23,7 +23,6 @@ num_threads=$3 # Max = 256
 job_name=$4
 num_nodes=$5
 ntasks_per_node=$6
-cores_per_task=$7
 
 # Validate file type
 case "$file_type" in
@@ -39,7 +38,6 @@ validate_number "$array_size"
 validate_number "$num_threads"
 validate_number "$num_nodes"
 validate_number "$ntasks_per_node"
-validate_number "$cores_per_task"
 
 # Check that the number of threads is less than or equal to 256.
 if [ "$num_threads" -gt 256 ]; then
@@ -54,19 +52,19 @@ num_cores=$((num_threads / 2)) # Hyperthreading (2 threads per core)
 # set is_c_program to false if the file type is a Python script and copy the script to program.py
 is_c_program=false
 case "$file_type" in
-    "cNoThread" | "cNoThread.c")
-	is_c_program=true
-	gcc -o program cNoThread.c ;;
-    "cPThread | cPThread.c")
-	is_c_program=true
-	gcc -o program cPThread.c -lpthread ;;
-    "cOpenMP" | "cOpenMP.c")
-	is_c_program=true
-	gcc -o program cOpenMP.c -fopenmp ;;
+	"cNoThread" | "cNoThread.c")
+		is_c_program=true
+		gcc -o program cNoThread.c ;;
+    	"cPThread" | "cPThread.c")
+		is_c_program=true
+		gcc -o program cPThread.c -lpthread ;;
+    	"cOpenMP" | "cOpenMP.c")
+		is_c_program=true
+		gcc -o program cOpenMP.c -fopenmp ;;
 	"pythonNoThreads" | "pythonNoThreads.py")
-	cp pythonNoThreads.py program.py ;;
+		cp pythonNoThreads.py program.py ;;
 	"pythonWithThreads" | "pythonWithThreads.py")
-	cp pythonWithThreads.py program.py ;;
+		cp pythonWithThreads.py program.py ;;
 esac
 
 # Generate Slurm batch job script
@@ -79,26 +77,14 @@ if [ "$is_c_program" = true ]; then
 #SBATCH --job-name=$job_name
 #SBATCH --nodes=$num_nodes
 #SBATCH --ntasks-per-node=$ntasks_per_node
-#SBATCH --cpus-per-task=$cores_per_task
+#SBATCH --cpus-per-task=$num_cores
 #SBATCH --time=4:00:00
-#SBATCH --output=$job_name.out
-#SBATCH --error=$job_name.err
+#SBATCH -o ./slurm-output/output.%j.out # STDOUT
 
-# Load any necessary modules
-# module load <module_name>
-# module load gcc
-# module load python
-# module load openmpi
-# module load openmp
-# module load pthread
-# module load mpi
-# module load stdio
-# module load stdlib
-# module load time
-# module load omp
+module load gcc
+module load openmpi
 
-# Execute your program here
-# ./program $array_size $num_threads
+./program $array_size $num_threads
 EOF
 else
     cat <<EOF >"./batch-jobs/$batch_job_script"
@@ -106,21 +92,13 @@ else
 #SBATCH --job-name=$job_name
 #SBATCH --nodes=$num_nodes
 #SBATCH --ntasks-per-node=$ntasks_per_node
-#SBATCH --cpus-per-task=$cores_per_task
+#SBATCH --cpus-per-task=$num_cores
 #SBATCH --time=4:00:00
-#SBATCH --output=$job_name.out
-#SBATCH --error=$job_name.err
-#
-# Load any necessary modules
-# module load <module_name>
-# module load python
-# module load sys
-# module load time
-# module load os
-# module load threading
-#
-# Execute your program here
-# python program.py $array_size $num_threads
+#SBATCH -o ./slurm-output/output.%j.out # STDOUT
+
+module load python
+
+python program.py $array_size $num_threads
 EOF
 fi
 

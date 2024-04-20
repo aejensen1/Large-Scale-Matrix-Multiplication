@@ -1,0 +1,4 @@
+File name: program.py
+Matrix Size: 5x5
+Number of Threads: 1
+Execution Time: 0.0005 seconds
