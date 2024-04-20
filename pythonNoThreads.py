@@ -49,8 +49,9 @@ else:
 # Write statistics to file, including the number of threads
 stats_filename = "pythonNoThreads_stats.txt"
 with open(stats_filename, "w") as stats_file:
-    stats_file.write(f"File name: {os.path.basename(__file__)}\n")
-    stats_file.write(f"Matrix Size: {n}x{n}\n")
-    stats_file.write(f"Number of Threads: 1\n")  # Specify number of threads used for non-threaded script
-    stats_file.write(f"Execution Time: {execution_time:.4f} seconds\n")
+    stats_file.write(f"{os.path.basename(__file__)},{sys.argv[1]},{sys.argv[2]},{sys.argv[3]},{sys.argv[4]},{sys.argv[5]},{sys.argv[6]},{execution_time:.4f}")
+    #stats_file.write(f"File name: {os.path.basename(__file__)}\n")
+    #stats_file.write(f"Matrix Size: {n}x{n}\n")
+    #stats_file.write(f"Number of Threads: 1\n")  # Specify number of threads used for non-threaded script
+    #stats_file.write(f"Execution Time: {execution_time:.4f} seconds\n")
 print(f"Statistics written to {stats_filename}")

@@ -1,0 +1,13 @@
+Running cOpenMP:
+
+Creating 3 arrays of size 4x4...
+
+Initializing matrix values...
+Performing matrix multiplication using OpenMP with 11 threads...
+Resultant matrix:
+4 4 4 4 
+4 4 4 4 
+4 4 4 4 
+4 4 4 4 
+Writing statistics to file...
+Statistics written to cOpenMP_stats.txt

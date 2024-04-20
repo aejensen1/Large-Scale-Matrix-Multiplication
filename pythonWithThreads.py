@@ -18,8 +18,8 @@ if __name__ == "__main__":
     print("Running pythonWithThreads: \n")
 
     # Check command line arguments for the number of rows/columns and threads
-    if len(sys.argv) < 3:
-        print("Error: Two arguments required - number of rows/columns and number of threads.")
+    if len(sys.argv) < 7:
+        print("Error: 6 arguments required - number of rows/columns and number of threads.")
         sys.exit(1)
     
     try:
@@ -70,8 +70,9 @@ if __name__ == "__main__":
     # Write execution stats to a file
     stats_filename = "pythonWithThreads_stats.txt"
     with open(stats_filename, "w") as stats_file:
-        stats_file.write(f"File name: {os.path.basename(__file__)}\n")
-        stats_file.write(f"Matrix Size: {n}x{n}\n")
-        stats_file.write(f"Number of Threads: {num_threads}\n")
-        stats_file.write(f"Execution Time: {execution_time:.4f} seconds\n")
+        stats_file.write(f"{os.path.basename(__file__)},{sys.argv[1]},{sys.argv[2]},{sys.argv[3]},{sys.argv[4]},{sys.argv[5]},{sys.argv[6]},{execution_time:.4f}")
+        #stats_file.write(f"File name: {os.path.basename(__file__)}\n")
+        #stats_file.write(f"Matrix Size: {n}x{n}\n")
+        #stats_file.write(f"Number of Threads: {num_threads}\n")
+        #stats_file.write(f"Execution Time: {execution_time:.4f} seconds\n")
     print(f"Statistics written to {stats_filename}")

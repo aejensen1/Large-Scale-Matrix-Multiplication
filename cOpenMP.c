@@ -5,8 +5,8 @@
 int main(int argc, char *argv[]) {
     printf("Running cOpenMP:\n\n");
 
-    if (argc < 3) {
-        fprintf(stderr, "Usage: %s <number of rows/columns> <number of threads>\n", argv[0]);
+    if (argc < 7) {
+        fprintf(stderr, "Usage: %s <array_size> <num_threads> <num_cores> <job_name> <num_nodes> <ntasks_per_node>\n", argv[0]);
         return 1;
     }
 
@@ -75,10 +75,11 @@ int main(int argc, char *argv[]) {
     printf("Writing statistics to file...\n");
     FILE *stats_file = fopen("cOpenMP_stats.txt", "w");
     if (stats_file != NULL) {
-	fprintf(stats_file, "File name: %s\n", __FILE__);
-        fprintf(stats_file, "Matrix Size: %dx%d\n", n, n);
-        fprintf(stats_file, "Number of Threads: %d\n", num_threads);
-        fprintf(stats_file, "Execution Time: %.4f seconds\n", end_time - start_time);
+	fprintf(stats_file, "%s,%s,%s,%s,%s,%s,%s,%4f", __FILE__, argv[1], argv[2], argv[3], argv[4], argv[5], argv[6], end_time - start_time);
+	//fprintf(stats_file, "File name: %s\n", __FILE__);
+        //fprintf(stats_file, "Matrix Size: %dx%d\n", n, n);
+        //fprintf(stats_file, "Number of Threads: %d\n", num_threads);
+        //fprintf(stats_file, "Execution Time: %.4f seconds\n", end_time - start_time);
         fclose(stats_file);
         printf("Statistics written to cOpenMP_stats.txt\n");
     } else {

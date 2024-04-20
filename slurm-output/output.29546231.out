@@ -1,0 +1,19 @@
+Running pythonNoThreads: 
+
+Creating first array with 9 columns and 9 rows... 
+
+Creating second array with 9 columns and 9 rows... 
+
+Performing matrix multiplication... 
+
+Resulting Array: 
+9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9
+9 9 9 9 9 9 9 9 9
+Statistics written to pythonNoThreads_stats.txt

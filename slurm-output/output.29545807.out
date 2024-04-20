@@ -1,0 +1,4 @@
+  File "/home/anders.jensen/Large-Scale-Matrix-Multiplication/pythonNoThreads.py", line 52
+    stats_file.write(f"{os.path.basename(__file__)},{sys.argv[1]},{sys.argv[2]},{sys.argv[3]},{sys.argv[4]},sys.argv[5]},{sys.argv[6]},{execution_time}")
+                                                                                                                                                        ^
+SyntaxError: f-string: single '}' is not allowed

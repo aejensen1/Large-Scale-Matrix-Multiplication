@@ -1,0 +1,14 @@
+Running pythonNoThreads: 
+
+Creating first array with 4 columns and 4 rows... 
+
+Creating second array with 4 columns and 4 rows... 
+
+Performing matrix multiplication... 
+
+Resulting Array: 
+4 4 4 4
+4 4 4 4
+4 4 4 4
+4 4 4 4
+Statistics written to pythonNoThreads_stats.txt

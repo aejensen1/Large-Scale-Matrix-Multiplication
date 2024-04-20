@@ -1,4 +1,1 @@
-File name: cOpenMP.c
-Matrix Size: 5x5
-Number of Threads: 20
-Execution Time: 0.0005 seconds
+cOpenMP.c,4,11,5,job-38,1,1,0.000239

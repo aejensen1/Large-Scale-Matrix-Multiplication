@@ -10,8 +10,8 @@
 int main(int argc, char *argv[]) {
     printf("Running cNoThreads:\n\n");
 
-    if (argc < 2) {
-        fprintf(stderr, "Usage: %s <number of rows/columns>\n", argv[0]);
+    if (argc < 7) {
+        fprintf(stderr, "Usage: %s <array_size> <num_threads> <num_cores> <job_name> <num_nodes> <ntasks_per_node>\n", argv[0]);
         return 1;
     }
     int n = atoi(argv[1]); // n = number of rows and columns
@@ -63,10 +63,11 @@ int main(int argc, char *argv[]) {
     // Write statistics to file
     FILE *stats_file = fopen("cNoThread_stats.txt", "w");
     if (stats_file != NULL) {
-	fprintf(stats_file, "File name: %s\n", __FILE__);
-        fprintf(stats_file, "Matrix Size: %dx%d\n", n, n);
-        fprintf(stats_file, "Number of Threads: 1\n"); // It's a single-threaded program
-        fprintf(stats_file, "Execution Time: %f seconds\n", time_spent);
+	fprintf(stats_file, "%s,%s,%s,%s,%s,%s,%s,%4444f", __FILE__, argv[1], argv[2], argv[3], argv[4], argv[5], argv[6], time_spent);
+	//fprintf(stats_file, "File name: %s\n", __FILE__);
+        //fprintf(stats_file, "Matrix Size: %dx%d\n", n, n);
+        //fprintf(stats_file, "Number of Threads: 1\n"); // It's a single-threaded program
+        //fprintf(stats_file, "Execution Time: %f seconds\n", time_spent);
         fclose(stats_file);
     } else {
         perror("Unable to open the statistics file");

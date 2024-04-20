@@ -51,6 +51,7 @@ num_cores=$((num_threads / 2)) # Hyperthreading (2 threads per core)
 # set is_c_program to true if the file type is a C program and compile the program with the appropriate flags
 # set is_c_program to false if the file type is a Python script and copy the script to program.py
 is_c_program=false
+is_threaded=false
 case "$file_type" in
 	"cNoThread" | "cNoThread.c")
 		is_c_program=true
@@ -62,9 +63,9 @@ case "$file_type" in
 		is_c_program=true
 		gcc -o program cOpenMP.c -fopenmp ;;
 	"pythonNoThreads" | "pythonNoThreads.py")
-		cp pythonNoThreads.py program.py ;;
+		is_threaded=false ;;
 	"pythonWithThreads" | "pythonWithThreads.py")
-		cp pythonWithThreads.py program.py ;;
+		is_threaded=true ;;
 esac
 
 # Generate Slurm batch job script
@@ -84,10 +85,11 @@ if [ "$is_c_program" = true ]; then
 module load gcc
 module load openmpi
 
-./program $array_size $num_threads
+./program $array_size $num_threads $num_cores $job_name $num_nodes $ntasks_per_node
 EOF
-else
-    cat <<EOF >"./batch-jobs/$batch_job_script"
+else 
+	if [ "$is_threaded" = true ]; then
+    		cat <<EOF >"./batch-jobs/$batch_job_script"
 #!/bin/bash
 #SBATCH --job-name=$job_name
 #SBATCH --nodes=$num_nodes
@@ -98,8 +100,23 @@ else
 
 module load python
 
-python program.py $array_size $num_threads
+python pythonWithThreads.py $array_size $num_threads $num_cores $job_name $num_nodes $ntasks_per_node
 EOF
+	else
+    		cat <<EOF >"./batch-jobs/$batch_job_script"
+#!/bin/bash
+#SBATCH --job-name=$job_name
+#SBATCH --nodes=$num_nodes
+#SBATCH --ntasks-per-node=$ntasks_per_node
+#SBATCH --cpus-per-task=$num_cores
+#SBATCH --time=4:00:00
+#SBATCH -o ./slurm-output/output.%j.out # STDOUT
+
+module load python
+
+python pythonNoThreads.py $array_size $num_threads $num_cores $job_name $num_nodes $ntasks_per_node
+EOF
+	fi
 fi
 
 # Submit the Slurm batch job
