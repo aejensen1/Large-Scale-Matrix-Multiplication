@@ -73,7 +73,14 @@ int main(int argc, char *argv[]) {
     }
 
     printf("Writing statistics to file...\n");
-    FILE *stats_file = fopen("cOpenMP_stats.txt", "w");
+    // Write statistics to file
+    FILE *stats_file;
+    char filename[100]; // Adjust the size as needed
+    
+    // Construct the filename with argv[4] appended
+    sprintf(filename, "./output-statistics/%s_cOpenMP_stats.txt", argv[4]); // Change the directory path as needed
+
+    stats_file = fopen(filename, "w");
     if (stats_file != NULL) {
 	fprintf(stats_file, "%s,%s,%s,%s,%s,%s,%s,%4f", __FILE__, argv[1], argv[2], argv[3], argv[4], argv[5], argv[6], end_time - start_time);
 	//fprintf(stats_file, "File name: %s\n", __FILE__);

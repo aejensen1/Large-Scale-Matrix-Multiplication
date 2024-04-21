@@ -1,4 +1,1 @@
-File name: program.py
-Matrix Size: 5x5
-Number of Threads: 5
-Execution Time: 0.0012 seconds
+pythonWithThreads.py,4,6,3,jobasc,1,1,0.0006

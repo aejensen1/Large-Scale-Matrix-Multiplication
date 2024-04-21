@@ -68,7 +68,11 @@ if __name__ == "__main__":
         print(f"Matrix of size {n}x{n} created but too large to display.")
 
     # Write execution stats to a file
-    stats_filename = "pythonWithThreads_stats.txt"
+    stats_dir = "output-statistics"  # Directory name
+    os.makedirs(stats_dir, exist_ok=True)  # Create the directory if it doesn't exist
+
+    stats_filename = os.path.join(stats_dir, f"{sys.argv[4]}_pythonWithThreads_stats.txt")  # Construct filename with argv[4] and place it under the statistics directory
+
     with open(stats_filename, "w") as stats_file:
         stats_file.write(f"{os.path.basename(__file__)},{sys.argv[1]},{sys.argv[2]},{sys.argv[3]},{sys.argv[4]},{sys.argv[5]},{sys.argv[6]},{execution_time:.4f}")
         #stats_file.write(f"File name: {os.path.basename(__file__)}\n")

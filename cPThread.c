@@ -118,8 +118,14 @@ int main(int argc, char *argv[]) {
         printf("Matrix of size %dx%d created but too large to display.\n", n, n);
     }
 
-    // Write statistics to a file
-    FILE *stats_file = fopen("cPThread_stats.txt", "w");
+    // Write statistics to file
+    FILE *stats_file;
+    char filename[100]; // Adjust the size as needed
+    
+    // Construct the filename with argv[4] appended
+    sprintf(filename, "./output-statistics/%s_cPThread_stats.txt", argv[4]); // Change the directory path as needed
+    
+    stats_file = fopen(filename, "w");
     if (stats_file != NULL) {
 	fprintf(stats_file, "%s,%s,%s,%s,%s,%s,%s,%4f", __FILE__, argv[1], argv[2], argv[3], argv[4], argv[5], argv[6], elapsed);
 	//fprintf(stats_file, "File name: %s\n", __FILE__);

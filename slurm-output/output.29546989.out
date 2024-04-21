@@ -1,0 +1,10 @@
+Running pythonWithThreads: 
+
+Performing matrix multiplication using 4 thread(s)...
+
+Resulting Matrix:
+4 4 4 4
+4 4 4 4
+4 4 4 4
+4 4 4 4
+Statistics written to pythonWithThreads_stats.txt

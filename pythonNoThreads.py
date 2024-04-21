@@ -47,7 +47,10 @@ else:
         print(' '.join(map(str, row)))
 
 # Write statistics to file, including the number of threads
-stats_filename = "pythonNoThreads_stats.txt"
+stats_dir = "output-statistics"  # Directory name
+os.makedirs(stats_dir, exist_ok=True)  # Create the directory if it doesn't exist
+
+stats_filename = os.path.join(stats_dir, f"{sys.argv[4]}_pythonNoThreads_stats.txt")  # Construct filename with argv[4] and place it under the statistics directory
 with open(stats_filename, "w") as stats_file:
     stats_file.write(f"{os.path.basename(__file__)},{sys.argv[1]},{sys.argv[2]},{sys.argv[3]},{sys.argv[4]},{sys.argv[5]},{sys.argv[6]},{execution_time:.4f}")
     #stats_file.write(f"File name: {os.path.basename(__file__)}\n")
