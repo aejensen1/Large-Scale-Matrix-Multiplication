@@ -48,31 +48,38 @@ fi
 # Calculate the number of cores needed
 num_cores=$((num_threads / 2)) # Hyperthreading (2 threads per core)
 
-# set is_c_program to true if the file type is a C program and compile the program with the appropriate flags
-# set is_c_program to false if the file type is a Python script and copy the script to program.py
-is_c_program=false
-is_threaded=false
+program_type=""
 case "$file_type" in
-	"cNoThread" | "cNoThread.c")
-		is_c_program=true
-		gcc -o program cNoThread.c ;;
-    	"cPThread" | "cPThread.c")
-		is_c_program=true
-		gcc -o program cPThread.c -lpthread ;;
-    	"cOpenMP" | "cOpenMP.c")
-		is_c_program=true
-		gcc -o program cOpenMP.c -fopenmp ;;
-	"pythonNoThreads" | "pythonNoThreads.py")
-		is_threaded=false ;;
-	"pythonWithThreads" | "pythonWithThreads.py")
-		is_threaded=true ;;
+    "cNoThread" | "cNoThread.c")
+        program_type="${job_name}_cNoThread.c"
+        if [ -f "./compiled-programs/$program_type" ]; then
+            rm "./compiled-programs/$program_type"
+        fi
+        gcc -o "./compiled-programs/$program_type" cNoThread.c ;;
+    "cPThread" | "cPThread.c")
+        program_type="${job_name}_cPThread.c"
+        if [ -f "./compiled-programs/$program_type" ]; then
+            rm "./compiled-programs/$program_type"
+        fi
+        gcc -o "./compiled-programs/$program_type" cPThread.c -lpthread ;;
+    "cOpenMP" | "cOpenMP.c")
+        program_type="${job_name}_cOpenMP.c"
+        if [ -f "./compiled-programs/$program_type" ]; then
+            rm "./compiled-programs/$program_type"
+        fi
+        gcc -o "./compiled-programs/$program_type" cOpenMP.c -fopenmp ;;
+    "pythonNoThreads" | "pythonNoThreads.py")
+        program_type="pythonNoThreads.py" ;;
+    "pythonWithThreads" | "pythonWithThreads.py")
+        program_type="pythonWithThreads.py" ;;
 esac
+
 
 # Generate Slurm batch job script
 batch_job_script="job_${job_name}.sbatch"
 
 # Write the Slurm batch job script with either C program or Python script execution
-if [ "$is_c_program" = true ]; then
+if [[ "$program_type" == *.c ]]; then
     cat <<EOF >"./batch-jobs/$batch_job_script"
 #!/bin/bash
 #SBATCH --job-name=$job_name
@@ -83,13 +90,12 @@ if [ "$is_c_program" = true ]; then
 #SBATCH -o ./slurm-output/output.%j.out # STDOUT
 
 module load gcc
-module load openmpi
+module load omp
 
-./program $array_size $num_threads $num_cores $job_name $num_nodes $ntasks_per_node
+./compiled-programs/$program_type $array_size $num_threads $num_cores $job_name $num_nodes $ntasks_per_node
 EOF
-else 
-	if [ "$is_threaded" = true ]; then
-    		cat <<EOF >"./batch-jobs/$batch_job_script"
+else
+    cat <<EOF >"./batch-jobs/$batch_job_script"
 #!/bin/bash
 #SBATCH --job-name=$job_name
 #SBATCH --nodes=$num_nodes
@@ -100,23 +106,8 @@ else
 
 module load python
 
-python pythonWithThreads.py $array_size $num_threads $num_cores $job_name $num_nodes $ntasks_per_node
+python "$program_type" $array_size $num_threads $num_cores $job_name $num_nodes $ntasks_per_node
 EOF
-	else
-    		cat <<EOF >"./batch-jobs/$batch_job_script"
-#!/bin/bash
-#SBATCH --job-name=$job_name
-#SBATCH --nodes=$num_nodes
-#SBATCH --ntasks-per-node=$ntasks_per_node
-#SBATCH --cpus-per-task=$num_cores
-#SBATCH --time=4:00:00
-#SBATCH -o ./slurm-output/output.%j.out # STDOUT
-
-module load python
-
-python pythonNoThreads.py $array_size $num_threads $num_cores $job_name $num_nodes $ntasks_per_node
-EOF
-	fi
 fi
 
 # Submit the Slurm batch job

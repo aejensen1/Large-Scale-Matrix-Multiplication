@@ -46,15 +46,7 @@ else:
     for row in array3:
         print(' '.join(map(str, row)))
 
-# Write statistics to file, including the number of threads
-stats_dir = "output-statistics"  # Directory name
-os.makedirs(stats_dir, exist_ok=True)  # Create the directory if it doesn't exist
-
-stats_filename = os.path.join(stats_dir, f"{sys.argv[4]}_pythonNoThreads_stats.txt")  # Construct filename with argv[4] and place it under the statistics directory
-with open(stats_filename, "w") as stats_file:
+# Save results
+with open("./report/data.csv", "a") as stats_file:
     stats_file.write(f"{os.path.basename(__file__)},{sys.argv[1]},{sys.argv[2]},{sys.argv[3]},{sys.argv[4]},{sys.argv[5]},{sys.argv[6]},{execution_time:.4f}")
-    #stats_file.write(f"File name: {os.path.basename(__file__)}\n")
-    #stats_file.write(f"Matrix Size: {n}x{n}\n")
-    #stats_file.write(f"Number of Threads: 1\n")  # Specify number of threads used for non-threaded script
-    #stats_file.write(f"Execution Time: {execution_time:.4f} seconds\n")
 print(f"Statistics written to {stats_filename}")

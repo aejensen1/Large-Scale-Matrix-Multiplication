@@ -59,6 +59,7 @@ int main(int argc, char *argv[]) {
     }
 
     double end_time = omp_get_wtime();
+    double elapsed = end_time - start_time;
 
     if (n <= 15) {
         printf("Resultant matrix:\n");
@@ -74,23 +75,13 @@ int main(int argc, char *argv[]) {
 
     printf("Writing statistics to file...\n");
     // Write statistics to file
-    FILE *stats_file;
-    char filename[100]; // Adjust the size as needed
-    
-    // Construct the filename with argv[4] appended
-    sprintf(filename, "./output-statistics/%s_cOpenMP_stats.txt", argv[4]); // Change the directory path as needed
-
-    stats_file = fopen(filename, "w");
-    if (stats_file != NULL) {
-	fprintf(stats_file, "%s,%s,%s,%s,%s,%s,%s,%4f", __FILE__, argv[1], argv[2], argv[3], argv[4], argv[5], argv[6], end_time - start_time);
-	//fprintf(stats_file, "File name: %s\n", __FILE__);
-        //fprintf(stats_file, "Matrix Size: %dx%d\n", n, n);
-        //fprintf(stats_file, "Number of Threads: %d\n", num_threads);
-        //fprintf(stats_file, "Execution Time: %.4f seconds\n", end_time - start_time);
-        fclose(stats_file);
-        printf("Statistics written to cOpenMP_stats.txt\n");
+    FILE *csv_file;
+    csv_file = fopen("../report/data.csv", "a"); // Open file in append mode
+    if (csv_file != NULL) {
+        fprintf(csv_file, "%s,%s,%s,%s,%s,%s,%s,%4f\n", __FILE__, argv[1], argv[2], argv[3], argv[4], argv[5], argv[6], elapsed);
+        fclose(csv_file);
     } else {
-        perror("Unable to open the statistics file");
+        perror("Unable to open the CSV file");
     }
 
     free(array1);

@@ -61,22 +61,13 @@ int main(int argc, char *argv[]) {
     }
 
     // Write statistics to file
-    FILE *stats_file;
-    char filename[100]; // Adjust the size as needed
-    
-    // Construct the filename with argv[4] appended
-    sprintf(filename, "./output-statistics/%s_cNoThread_stats.txt", argv[4]); // Change the directory path as needed
-    
-    stats_file = fopen(filename, "w");
-    if (stats_file != NULL) {
-        fprintf(stats_file, "%s,%s,%s,%s,%s,%s,%s,%4444f", __FILE__, argv[1], argv[2], argv[3], argv[4], argv[5], argv[6], time_spent);
-        //fprintf(stats_file, "File name: %s\n", __FILE__);
-        //fprintf(stats_file, "Matrix Size: %dx%d\n", n, n);
-        //fprintf(stats_file, "Number of Threads: 1\n"); // It's a single-threaded program
-        //fprintf(stats_file, "Execution Time: %f seconds\n", time_spent);
-        fclose(stats_file);
+    FILE *csv_file;
+    csv_file = fopen("../report/data.csv", "a"); // Open file in append mode
+    if (csv_file != NULL) {
+        fprintf(csv_file, "%s,%s,%s,%s,%s,%s,%s,%4f\n", __FILE__, argv[1], argv[2], argv[3], argv[4], argv[5], argv[6], time_spent);
+        fclose(csv_file);
     } else {
-        perror("Unable to open the statistics file");
+        perror("Unable to open the CSV file");
     }
 
     return 0;
