@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
+#include <string.h>
 
 int main(int argc, char *argv[]) {
     printf("Running cOpenMP:\n\n");

@@ -46,7 +46,7 @@ if [ "$num_threads" -gt 256 ]; then
 fi
 
 # Calculate the number of cores needed
-num_cores=$((num_threads / 2)) # Hyperthreading (2 threads per core)
+num_cores=$((num_threads + 1 / 2)) # Hyperthreading (2 threads per core)
 
 program_type=""
 case "$file_type" in
