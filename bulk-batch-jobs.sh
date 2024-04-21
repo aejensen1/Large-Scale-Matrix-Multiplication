@@ -38,7 +38,7 @@ while IFS=, read -r file_type array_size num_threads job_name num_nodes ntasks_p
     process_row "$file_type" "$array_size" "$num_threads" "$job_name" "$num_nodes" "$ntasks_per_node"
 
     # Generate a random delay between 15 and 30 seconds
-    delay=$(( RANDOM % 16 + 15 ))
+    delay=$(( RANDOM % 24 + 7 ))
     echo "Waiting for $delay seconds before processing the next batch..."
     sleep $delay
 

@@ -121,7 +121,7 @@ int main(int argc, char *argv[]) {
 
     // Write statistics to file
     FILE *csv_file;
-    csv_file = fopen("../report/data.csv", "a"); // Open file in append mode
+    csv_file = fopen("report/data.csv", "a"); // Open file in append mode
     if (csv_file != NULL) {
         fprintf(csv_file, "%s,%s,%s,%s,%s,%s,%s,%4f\n", __FILE__, argv[1], argv[2], argv[3], argv[4], argv[5], argv[6], elapsed);
         fclose(csv_file);

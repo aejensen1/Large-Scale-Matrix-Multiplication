@@ -2,11 +2,10 @@
 #SBATCH --job-name=job6
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=10
+#SBATCH --cpus-per-task=1
 #SBATCH --time=4:00:00
-#SBATCH -o ./slurm-output/output.%a.out # STDOUT
+#SBATCH -o ./slurm-output/output.%j.out # STDOUT
 
 module load gcc
-module load openmpi
 
-./program 5 20
+./compiled-programs/job6_cOpenMP.c 20 1 1 job6 1 1

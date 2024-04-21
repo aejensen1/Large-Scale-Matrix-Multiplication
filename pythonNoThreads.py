@@ -48,5 +48,5 @@ else:
 
 # Save results
 with open("./report/data.csv", "a") as stats_file:
-    stats_file.write(f"{os.path.basename(__file__)},{sys.argv[1]},{sys.argv[2]},{sys.argv[3]},{sys.argv[4]},{sys.argv[5]},{sys.argv[6]},{execution_time:.4f}")
+    stats_file.write(f"{os.path.basename(__file__)},{sys.argv[1]},{sys.argv[2]},{sys.argv[3]},{sys.argv[4]},{sys.argv[5]},{sys.argv[6]},{execution_time:.4f}\n")
 print(f"Statistics written to {stats_filename}")

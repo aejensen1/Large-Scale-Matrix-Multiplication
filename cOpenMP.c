@@ -2,8 +2,18 @@
 #include <stdlib.h>
 #include <omp.h>
 #include <string.h>
+#include <unistd.h>
 
 int main(int argc, char *argv[]) {
+	char cwd[1024];
+if (getcwd(cwd, sizeof(cwd)) != NULL) {
+    printf("Current working directory: %s\n", cwd);
+} else {
+    perror("getcwd() error");
+    return 1;
+}
+
+
     printf("Running cOpenMP:\n\n");
 
     if (argc < 7) {
@@ -77,7 +87,7 @@ int main(int argc, char *argv[]) {
     printf("Writing statistics to file...\n");
     // Write statistics to file
     FILE *csv_file;
-    csv_file = fopen("../report/data.csv", "a"); // Open file in append mode
+    csv_file = fopen("report/data.csv", "a"); // Open file in append mode
     if (csv_file != NULL) {
         fprintf(csv_file, "%s,%s,%s,%s,%s,%s,%s,%4f\n", __FILE__, argv[1], argv[2], argv[3], argv[4], argv[5], argv[6], elapsed);
         fclose(csv_file);

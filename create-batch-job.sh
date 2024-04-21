@@ -90,7 +90,6 @@ if [[ "$program_type" == *.c ]]; then
 #SBATCH -o ./slurm-output/output.%j.out # STDOUT
 
 module load gcc
-module load omp
 
 ./compiled-programs/$program_type $array_size $num_threads $num_cores $job_name $num_nodes $ntasks_per_node
 EOF

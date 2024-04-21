@@ -1,1 +1,8 @@
 file_type,array_size,num_threads,num_cores,job_name,num_nodes,ntasks_per_node,time_spent
+cOpenMP.c,10,1,1,job1,1,1,0.000013
+cPThread.c,10,1,1,job2,1,1,0.000333
+pythonWithThreads.py,10,1,1,job3,1,1,0.0011
+cNoThread.c,10,1,1,job4,1,1,0.000006
+pythonNoThreads.py,10,1,1,job5,1,1,0.0002
+cPThread.c,20,1,1,job7,1,1,0.000123
+cOpenMP.c,20,1,1,job6,1,1,0.000065
