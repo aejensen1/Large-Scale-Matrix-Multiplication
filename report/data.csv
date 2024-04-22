@@ -122,3 +122,13 @@ pythonWithThreads.py,1750,20,20,job529,1,1,464.1502
 cOpenMP.c,2000,20,20,job530,1,1,1.912504
 cPThread.c,2000,20,20,job531,1,1,2.711342
 pythonWithThreads.py,2000,20,20,job532,1,1,694.3133
+pythonNoThreads.py,200,1,1,job615,1,1,0.8019
+pythonNoThreads.py,300,1,1,job616,1,1,2.8344
+pythonNoThreads.py,400,1,1,job617,1,1,6.8034
+pythonNoThreads.py,500,1,1,job618,1,1,11.7736
+pythonNoThreads.py,750,1,1,job619,1,1,46.1761
+pythonNoThreads.py,1000,1,1,job620,1,1,110.3648
+pythonNoThreads.py,1250,1,1,job621,1,1,204.3619
+pythonNoThreads.py,1500,1,1,job622,1,1,358.1194
+pythonNoThreads.py,1750,1,1,job623,1,1,619.8163
+pythonNoThreads.py,2000,1,1,job624,1,1,958.9245
