@@ -1,0 +1,4 @@
+venv/
+slurm-output/*
+compiled-programs/*
+batch-jobs/*
