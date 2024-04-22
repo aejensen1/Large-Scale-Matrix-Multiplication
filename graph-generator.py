@@ -68,10 +68,7 @@ def generate_graphs(df):
 
 def main():
     # Read data from CSV
-    df = pd.read_csv('input.csv')  # Replace 'input.csv' with your CSV file path
-
-    # Calculate num_cores
-    df['num_cores'] = df['num_threads'] / 2
+    df = pd.read_csv('./report/data.csv')  # Replace 'input.csv' with your CSV file path
 
     # Generate graphs
     generate_graphs(df)
