@@ -9,6 +9,10 @@ This is a project for operating systems class that is supposed to demonstrate ho
 
 --------------------------------------------------------------
 
+You can find the final report for this project at: [a link](https://github.com/aejensen1/Large-Scale-Matrix-Multiplication/blob/main/report/FinalReport.pdf)
+
+--------------------------------------------------------------
+
 The requirements for the assignment were as follows:
 Implement Matrix multiplication using:
 1. Python no threads
