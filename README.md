@@ -9,7 +9,7 @@ This is a project for operating systems class that is supposed to demonstrate ho
 
 --------------------------------------------------------------
 
-You can find the final report for this project at: [a link](https://github.com/aejensen1/Large-Scale-Matrix-Multiplication/blob/main/report/FinalReport.pdf)
+You can find the final report for this project [here](https://github.com/aejensen1/Large-Scale-Matrix-Multiplication/blob/main/report/FinalReport.pdf)
 
 --------------------------------------------------------------
 
