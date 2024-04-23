@@ -132,3 +132,15 @@ pythonNoThreads.py,1250,1,1,job621,1,1,204.3619
 pythonNoThreads.py,1500,1,1,job622,1,1,358.1194
 pythonNoThreads.py,1750,1,1,job623,1,1,619.8163
 pythonNoThreads.py,2000,1,1,job624,1,1,958.9245
+cOpenMP.c,100,20,20,job533,2,1,0.032544
+pythonWithThreads.py,200,20,20,job630,1,1,0.9426
+cPThread.c,100,20,20,job534,2,1,0.001223
+pythonWithThreads.py,300,20,20,job631,1,1,1.9861
+pythonWithThreads.py,100,20,20,job535,2,1,0.0747
+pythonWithThreads.py,400,20,20,job632,1,1,4.7457
+pythonWithThreads.py,500,20,20,job633,1,1,9.0862
+pythonWithThreads.py,750,20,20,job634,1,1,30.9458
+pythonWithThreads.py,1000,20,20,job635,1,1,129.3538
+pythonWithThreads.py,1250,20,20,job636,1,1,267.2103
+pythonWithThreads.py,1500,20,20,job637,1,1,475.8205
+pythonWithThreads.py,1750,20,20,job638,1,1,430.9005
