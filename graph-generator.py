@@ -10,60 +10,42 @@ def generate_graphs(df):
 
     # Line graph
     plt.figure(figsize=(10, 6))
-    sns.lineplot(data=df, x='array_size', y='num_threads', hue='file_type')
+    sns.lineplot(data=df, x='array_size', y='time_spent', hue='file_type')
     plt.title('Line Graph')
     plt.xlabel('Array Size')
-    plt.ylabel('Number of Threads')
+    plt.ylabel('Time Spent (s)')
     plt.legend(title='File Type')
     plt.savefig('./report/images/line_graph.png')  # Save the graph as PNG file
     plt.close()
 
-    # Bar graph
+    # Filter the DataFrame to include only specific file types
+    filtered_df = df[df['file_type'].isin(['cOpenMP.c', 'cPThread.c', 'cNoThread.c'])]
+
     plt.figure(figsize=(10, 6))
-    sns.barplot(data=df, x='num_nodes', y='array_size', hue='job_name', ci=None)
-    plt.title('Bar Graph')
-    plt.xlabel('Number of Nodes')
-    plt.ylabel('Array Size')
-    plt.legend(title='Job Name', loc='upper right')
-    plt.savefig('./report/images/bar_graph.png')  # Save the graph as PNG file
+    sns.lineplot(data=filtered_df, x='array_size', y='time_spent', hue='file_type')
+    plt.title('Line Graph')
+    plt.xlabel('Array Size')
+    plt.ylabel('Time Spent (s)')
+    plt.legend(title='File Type')
+    plt.savefig('./report/images/c_line_graph.png')  # Save the graph as PNG file
     plt.close()
 
-    # 3D box graph
+    # 3D box graph (example)
     fig = plt.figure(figsize=(10, 6))
     ax = fig.add_subplot(111, projection='3d')
-    ax.scatter(df['num_nodes'], df['array_size'], df['num_threads'], c='r', marker='o')
-    ax.set_xlabel('Number of Nodes')
+
+    # Loop through unique file types to plot each one separately
+    for file_type in df['file_type'].unique():
+        subset_df = df[df['file_type'] == file_type]
+        ax.scatter(subset_df['num_cores'], subset_df['array_size'], subset_df['time_spent'], label=file_type)
+
+    ax.set_xlabel('Number of Cores')
     ax.set_ylabel('Array Size')
-    ax.set_zlabel('Number of Threads')
+    ax.set_zlabel('Time Spent (s)')
     plt.title('3D Box Graph')
-    plt.savefig('./report/images/3d_box_graph.png')  # Save the graph as PNG file
-    plt.close()
-
-    # Scatter plot
-    plt.figure(figsize=(10, 6))
-    sns.scatterplot(data=df, x='num_cores', y='num_nodes', hue='job_name')
-    plt.title('Scatter Plot')
-    plt.xlabel('Number of Cores')
-    plt.ylabel('Number of Nodes')
-    plt.legend(title='Job Name', loc='upper left')
-    plt.savefig('./report/images/scatter_plot.png')  # Save the graph as PNG file
-    plt.close()
-
-    # Radar chart (example)
-    categories = list(df['file_type'].unique())
-    values = df.groupby('file_type').mean().values.flatten().tolist()
-    values += values[:1]
-    
-    angles = [n / float(len(categories)) * 2 * 3.14159 for n in range(len(categories))]
-    angles += angles[:1]
-    
-    plt.figure(figsize=(10, 6))
-    ax = plt.subplot(111, polar=True)
-    plt.xticks(angles[:-1], categories, color='grey', size=8)
-    ax.plot(angles, values)
-    ax.fill(angles, values, 'blue', alpha=0.1)
-    plt.title('Radar Chart')
-    plt.savefig('./report/images/radar_chart.png')  # Save the graph as PNG file
+    plt.legend(title='File Type', bbox_to_anchor=(1.05, 1), loc='upper left')
+    plt.tight_layout()  # Adjust layout to prevent overlap    
+    plt.savefig('./report/images/3d_box_graph_v2.png')  # Save the graph as PNG file
     plt.close()
 
 def main():
