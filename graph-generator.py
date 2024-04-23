@@ -18,6 +18,7 @@ def generate_graphs(df):
     plt.savefig('./report/images/line_graph.png')  # Save the graph as PNG file
     plt.close()
 
+    # line graph for c files only
     # Filter the DataFrame to include only specific file types
     filtered_df = df[df['file_type'].isin(['cOpenMP.c', 'cPThread.c', 'cNoThread.c'])]
 
@@ -28,6 +29,19 @@ def generate_graphs(df):
     plt.ylabel('Time Spent (s)')
     plt.legend(title='File Type')
     plt.savefig('./report/images/c_line_graph.png')  # Save the graph as PNG file
+    plt.close()
+
+    # line graph for threaded c files only
+    # Filter the DataFrame to include only specific file types
+    filtered_df = df[df['file_type'].isin(['cOpenMP.c', 'cPThread.c'])]
+
+    plt.figure(figsize=(10, 6))
+    sns.lineplot(data=filtered_df, x='array_size', y='time_spent', hue='file_type')
+    plt.title('Line Graph')
+    plt.xlabel('Array Size')
+    plt.ylabel('Time Spent (s)')
+    plt.legend(title='File Type')
+    plt.savefig('./report/images/threaded_c_line_graph.png')  # Save the graph as PNG file
     plt.close()
 
     # 3D box graph (example)
