@@ -5,7 +5,7 @@ Date: 4-22-2024
 
 Matrix Multiplication Developed to work on a significant number of cores using batch jobs
 
-This is a project for operating systems class that is supposed to demonstrate how a greater amount of processing power and resources impacts the speed of basic matrix multiplication of arrays with varying sizes.
+This is a project that is supposed to demonstrate how a greater amount of processing power and resources impacts the speed of basic matrix multiplication of arrays with varying sizes.
 
 --------------------------------------------------------------
 
